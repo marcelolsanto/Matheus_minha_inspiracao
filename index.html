@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+</head>
+<body>
+    <div id="div_login" >
+        <div id="div_entrada">
+            <input id="in_login" placeholder="Digite seu login"><br>
+            <input id="in_senha" placeholder="Digite sua senha">
+        </div>
+        <div id="div_usuario">
+            <select id="in_usuario">
+                <option value="">Escolha seu perfil</option>
+                <option value="cliente">Cliente</option>
+                <option value="projetista">Projetista</option>
+                <option value="vendedor">Vendedor</option>
+            </select>
+        </div>
+        <div id="div_botao">
+            <button id="btn_entrar" onclick="entrar()">Entrar</button>
+            <button id="btn_limpar" onclick="limpar()">Limpar</button>
+        </div>
+            <div id="div_mensagem"></div>
+    </div>
+</body>
+</html>
+<script>
+
+    var t = 0;
+
+    function limpar() {
+        var login = in_login.value;
+        var senha = in_senha.value;
+        var usuario = in_usuario.value;
+
+        if (login != "" && senha != "" && usuario != "") {
+            in_login.value = "";
+            in_senha.value = "";
+            in_usuario.value = "";
+
+        } else if (login != "" && senha != ""){
+            in_login.value = "";
+            in_senha.value = "";
+
+        } else if (senha != "" && usuario != ""){
+            in_senha.value = "";
+            in_usuario.value = "";
+
+        } else if (login != "" && usuario != ""){
+            in_login.value = "";
+            in_usuario.value = "";
+
+        }  else if (login != ""){
+            in_login.value = "";
+
+        }  else if (senha != ""){
+            in_senha.value = "";
+
+        } else {
+            in_usuario.value = "";
+        }
+    }
+
+    function entrar(){
+        var login = in_login.value;
+            var senha = in_senha.value;
+        var usuario = in_usuario.value;
+
+        var login_cliente = usuario + login + senha;
+            var login_projetista = usuario + login + senha;
+        var login_vendedor = usuario + login + senha;
+
+    if (login == "" && senha == "" && usuario == ""){
+        login_cliente = false;
+            login_projetista = false;
+        login_vendedor = false;
+
+    } else if (login != "" && senha == "" && usuario == ""){
+        login_cliente = false;
+            login_projetista = false;
+        login_vendedor = false;
+
+    } else if (login != "" && senha != "" && usuario == ""){
+        login_cliente = false;
+            login_projetista = false;
+        login_vendedor = false;
+
+    } else if (login == "" && senha == "" && usuario != ""){
+        login_cliente = false;
+            login_projetista = false;
+        login_vendedor = false;
+
+    } else if (login == "" && senha != "" && usuario != ""){
+        login_cliente = false;
+            login_projetista = false;
+        login_vendedor = false;
+
+    } else if (login != "" && senha == "" && usuario != ""){
+        login_cliente = false;
+            login_projetista = false;
+        login_vendedor = false;
+
+    } else if (login == "" && senha != "" && usuario == ""){
+        login_cliente = false;
+            login_projetista = false;
+        login_vendedor = false;
+
+    } else {
+        login_cliente = true;
+            login_projetista = true;
+        login_vendedor = true;
+    }
+
+    if (login_cliente == true && login_projetista == true && login_vendedor == true && t <= 2 ) {
+        limpar();
+            div_mensagem.innerHTML = `<p style="color: blue">Olá, ${login}!
+                <br> Você entrou com o perfil ${usuario}!</b><br><br>
+                    <img style="height: 300px" src="${usuario}.jpg">`;
+        t = 0;
+        console.log(t)
+
+    } else if (login_cliente==false && login_projetista==false && login_vendedor==false && t == 0 ) {
+        limpar();
+            div_mensagem.innerHTML = `<p style="color: red">Falha de autenticação!<br>Você tem mais 2 tentativas!</b>`;
+        t++;
+        console.log(t)
+
+    } else if (login_cliente==false && login_projetista==false && login_vendedor==false && t == 1 ) {
+        limpar();
+            div_mensagem.innerHTML = `<p style="color: red">Falha de autenticação!<br>Você tem mais 1 tentativas!</b>`;
+        t++;
+        console.log(t)
+
+    } else {
+        limpar();
+        console.log(t)
+            div_mensagem.innerHTML = `<p style="color: red">Acesso bloqueado!<br>Entre em contato com o suporte!</b>`;
+                div_entrada.style.display = 'none';
+                    div_usuario.style.display = 'none';
+                div_botao.style.display = 'none';
+    }
+}
+</script>
